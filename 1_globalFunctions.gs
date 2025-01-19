@@ -1,9 +1,13 @@
 const ss = SpreadsheetApp.getActiveSpreadsheet();
 const sheet = ss.getSheetByName('list');
-const lastRow = sheet.getRange('B5').getNextDataCell(SpreadsheetApp.Direction.DOWN).getRow();
 const triggerMode = sheet.getRange('I2').getValue();
 let loadingAnimation = HtmlService.createTemplateFromFile('loadingAnimation');
 const closeModalDialog = HtmlService.createHtmlOutput('<script>google.script.host.close()</script>');
+
+let lastRow = sheet.getRange('B5').getNextDataCell(SpreadsheetApp.Direction.DOWN).getRow();
+if (lastRow === sheet.getMaxRows()) {
+  lastRow = 5;
+}
 
 function setup(e) { //初期設定
   const ui = SpreadsheetApp.getUi();
